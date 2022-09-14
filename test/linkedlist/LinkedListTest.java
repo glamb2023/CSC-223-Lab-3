@@ -42,6 +42,7 @@ class LinkedListTest {
 		assertTrue(list.size()==3);
 
 		list.remove(4);
+		System.out.print(list.toString());
 		assertTrue(list.size()==2);
 		assertFalse(list.contains(4));
 		assertTrue(list.contains(3));
