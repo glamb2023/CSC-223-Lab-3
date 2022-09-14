@@ -124,22 +124,28 @@ public class LinkedEquivalenceClass<T> {
 	}
 	
 	/**
-	 * Removes a specified element from the equivalence class //////should the canonical be updated to something in _rest?
+	 * Removes a specified element from the equivalence class, if it exists
 	 * @param target - the element to remove
 	 * @return whether the remove operation was successful
 	 */
 	public boolean remove(T target) {
-		// add check for canonical maybe?
+		if (target == null) return false;
+		
+		if (target == _canonical) {
+			return removeCanonical();
+		}
 		return _rest.remove(target);
 	}
 	
 	/**
-	 * Removes the canonical object. //////should the canonical be updated to something in _rest?
+	 * Removes the canonical object by setting it to null.
 	 * @return whether the remove operation was successful
 	 */
-//	public boolean removeCanonical() {
-//		
-//	}
+	public boolean removeCanonical() {
+		if (_canonical != null) return false;
+		_canonical = null;
+		return true;
+	}
 	
 	/**
 	 * If the specified element belongs in this equivalence class, 

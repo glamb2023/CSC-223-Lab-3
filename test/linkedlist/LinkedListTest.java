@@ -104,6 +104,7 @@ class LinkedListTest {
 		assertTrue(list.contains(5));
 
 	}
+
 	@Test
 	void testRemoveNonExistent() {
 		LinkedList<Integer> list = new LinkedList<Integer>();
@@ -114,7 +115,33 @@ class LinkedListTest {
 		list.remove(7);
 		assertTrue(list.size()==3);
 	}
+	
+	// addToBack
+	// - add null
+	// - add integer
+	// - add multiple
 
-
+	@Test
+	void testaddToBack_integer() {
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list.addToBack(2);
+		assertEquals("2 ", list.toString());
+	}
+	
+	@Test
+	void testaddToBack_null() {
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list.addToBack(null);
+		assertEquals("", list.toString());
+	}
+	
+	@Test
+	void testaddToBack_multipleAdds() {
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list.addToBack(2);
+		list.addToBack(4);
+		assertEquals("2 4  ", list.toString());
+	}
+	
 }
 

@@ -115,18 +115,21 @@ public class LinkedList<T> {
 	}
 
 	/**
+	 * Returns the last element in the linked list.
+	 * If the list is empty, returns null.
 	 * Calls the recursive helper method last(Node current)
 	 * 
 	 * @return the last node of the list
 	 */
 	private Node last() {
+		if (_head._next == _tail) return null;
 		return last(_head._next);
 	}
 	
 	/**
-	 * recursive helper method that calls itself until the last node is reached.
+	 * Recursive helper method that calls itself until the last node is reached.
 	 * 
-	 * @param current -- current node
+	 * @param current - current node
 	 * @return last node of the list
 	 */
 	private Node last(Node current) {
