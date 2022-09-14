@@ -33,9 +33,21 @@ class LinkedListTest {
 		assertFalse(list.contains(8));
 	}
 	@Test
-	void testPrevious() {
+	void testRemove() {
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list.addToFront(5);
+		list.addToFront(4);
+		list.addToFront(3);
+		assertTrue(list.size()==3);
 
-		
+		list.remove(4);
+		assertTrue(list.size()==2);
+		assertFalse(list.contains(4));
+		assertTrue(list.contains(3));
+		assertTrue(list.contains(5));
+
 	}
 
+
 }
+

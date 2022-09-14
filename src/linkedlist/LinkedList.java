@@ -6,7 +6,7 @@ package linkedlist;
 public class LinkedList<T> {
 
 	protected Node _head;
-	public Node _tail;
+	protected Node _tail;
 	protected int _size;
 
 	private class Node {
@@ -69,7 +69,7 @@ public class LinkedList<T> {
 	 * @param target - node that is pointed to by the node we want
 	 * @return the found node
 	 */
-	public Node previous(T target) {
+	private Node previous(T target) {
 		return this.previous(target, _head);
 	}
 
@@ -94,10 +94,14 @@ public class LinkedList<T> {
 	 * @param target - item to find and remove
 	 * @return - whether the remove was successful
 	 */
+	
 	public boolean remove(T target) {
-		
-		_size--;
-		return false;
+
+		Node n = previous(target);
+		if (n==null) return false;
+		n._next=n._next._next;
+		return true;
+
 	}
 
 	/**
@@ -168,3 +172,4 @@ public class LinkedList<T> {
 	}
 
 }
+
