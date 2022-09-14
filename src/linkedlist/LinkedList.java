@@ -89,7 +89,7 @@ public class LinkedList<T> {
 	 */
 	private Node previous(T target, Node current) {
 		
-		if (target == null || current.equals(_tail))
+		if (target == null || current._next.equals(_tail))
 			return null;
 		if (current._next._item.equals(target))
 			return current;
@@ -107,7 +107,7 @@ public class LinkedList<T> {
 	public boolean remove(T target) {
 		//finds node previous to target
 		Node n = previous(target);
-		if (n==null) return false;
+		if (n == null) return false;
 		n._next=n._next._next;
 		_size--;
 		return true;
@@ -130,7 +130,7 @@ public class LinkedList<T> {
 	 * @return last node of the list
 	 */
 	private Node last(Node current) {
-		if (current._next.equals(_tail)) { return current; }
+		if (current._next.equals(_tail)) return current; 
 		return last(current._next);
 	}
 	
