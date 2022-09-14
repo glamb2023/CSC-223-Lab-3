@@ -141,9 +141,7 @@ public class LinkedList<T> {
 	 * @return whether it is at the end
 	 */
 	public boolean atEnd(Node n) {
-
-		return n == null;
-
+		return n.equals(this.last());
 	}
 
 	/**
