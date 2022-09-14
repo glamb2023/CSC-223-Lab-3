@@ -1,4 +1,5 @@
-package test;
+package linkedlist;
+import linkedlist;
 
 import static org.junit.jupiter.api.Assertions.*;
 
