@@ -137,9 +137,9 @@ public class LinkedEquivalenceClass<T> {
 	 * Removes the canonical object. //////should the canonical be updated to something in _rest?
 	 * @return whether the remove operation was successful
 	 */
-	public boolean removeCanonical() {
-		
-	}
+//	public boolean removeCanonical() {
+//		
+//	}
 	
 	/**
 	 * If the specified element belongs in this equivalence class, 

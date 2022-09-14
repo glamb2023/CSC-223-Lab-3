@@ -1,5 +1,4 @@
 package linkedlist;
-import linkedlist;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,28 +9,84 @@ import linkedlist.LinkedList;
 
 class LinkedListTest {
 
+	// isEmpty
+	
 	@Test
-	void testisEmpty() {
+	void testisEmpty_empty() {
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		assertTrue(list.isEmpty());
+	}
+	
+	@Test
+	void testisEmpty_notEmpty() {
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		list.addToFront(2);
 		assertFalse(list.isEmpty());
 	}
+	
+	// addToFront
+	// - integer
+	// - null
+	// - multiple adds
+	
 	@Test
-	void testaddToFront() {
+	void testaddToFront_integer() {
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		list.addToFront(2);
 		assertEquals("2 ", list.toString());
 	}
+	
 	@Test
-	void testContains() {
+	void testaddToFront_null() {
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list.addToFront(null);
+		assertEquals("", list.toString());
+	}
+	
+	@Test
+	void testaddToFront_multipleAdds() {
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list.addToFront(2);
+		list.addToFront(4);
+		assertEquals("4 2 ", list.toString());
+	}
+	
+	// contains
+	// - empty
+	// - try to find null
+	// - only element in list
+	// - at front
+	// - in middle
+	// - at back
+	
+	@Test
+	void testContains_long() {
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		list.addToFront(2);
 		list.addToFront(3);
 		list.addToFront(4);
 		list.addToFront(6);
+		// list: 6,4,3,2
 		assertTrue(list.contains(2));
+		assertTrue(list.contains(3));
 		assertTrue(list.contains(6));
 		assertFalse(list.contains(8));
+		assertFalse(list.contains(null));
+	}
+	
+	@Test
+	void testContains_size1() {
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list.addToFront(2);
+		assertTrue(list.contains(2));
+		assertFalse(list.contains(8));
+		assertFalse(list.contains(null));
+	}
+	
+	void testContains_empty() {
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		assertFalse(list.contains(2));
+		assertFalse(list.contains(null));
 	}
 	@Test
 	void testRemove() {
