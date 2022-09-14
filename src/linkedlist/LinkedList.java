@@ -20,9 +20,8 @@ public class LinkedList<T> {
 	}
 
 	public LinkedList() {
-		_head = new Node(null, null);
 		_tail = new Node(null, null);
-		_head._next = _tail;
+		_head = new Node(null, _tail);
 		_size = 0;
 	}
 
@@ -56,7 +55,7 @@ public class LinkedList<T> {
 	 */
 	private boolean contains(T target, Node current) {
 
-		if (target == null || current == null)
+		if (target == null || current._next == null)
 			return false;
 		if (current._item.equals(target))
 			return true;
@@ -81,7 +80,8 @@ public class LinkedList<T> {
 	 * @return
 	 */
 	private Node previous(T target, Node current) {
-		if (target == null || current._next == null)
+		
+		if (target == null || current.equals(_tail))
 			return null;
 		if (current._next._item.equals(target))
 			return current;
@@ -136,10 +136,10 @@ public class LinkedList<T> {
 	 * @param n - node to check
 	 * @return whether it is at the end
 	 */
-	public boolean atEnd(Node n) {
+	private boolean atEnd(Node n) {
 
-		return n == null;
-
+		return n.equals(_tail);
+		
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class LinkedList<T> {
 	public String toString() {
 
 		return toStringHelper(new StringBuilder(), _head._next);
-
+		
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class LinkedList<T> {
 	}
 
 	public void reverse() {
-
+		
 	}
 
 }
