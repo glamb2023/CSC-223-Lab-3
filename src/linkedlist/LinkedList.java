@@ -1,6 +1,7 @@
 package linkedlist;
 /**
  * A generic singly linked list class.
+ * Nodes with null items are not allowed, except for the sentinel head and tail nodes.
  * @param <T>
  */
 public class LinkedList<T> {
@@ -39,7 +40,14 @@ public class LinkedList<T> {
 		return _size;
 	}
 
+	/**
+	 * Adds a new element to the front of the list.
+	 * Nodes with null items are not allowed.
+	 * @param element
+	 */
 	public void addToFront(T element) {
+		if (element == null) return;
+		
 		_head._next = new Node(element, _head._next);
 		_size++;
 	}
@@ -127,11 +135,13 @@ public class LinkedList<T> {
 	}
 	
 	/**
-	 * Adds a new node using the specified element 
-	 * to the back of the linked list.
+	 * Adds a new element to the back of the list.
+	 * Nodes with null items are not allowed.
 	 * @param element - element to add
 	 */
 	public void addToBack(T element) {
+		if (element == null) return;
+		
 		 last()._next = new Node(element, null);
 	}
 	
