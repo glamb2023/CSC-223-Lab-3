@@ -1,6 +1,7 @@
 package linkedlist;
 /**
  * A generic singly linked list class.
+ * Nodes with null items are not allowed, except for the sentinel head and tail nodes.
  * @param <T>
  */
 public class LinkedList<T> {
@@ -38,7 +39,14 @@ public class LinkedList<T> {
 		return _size;
 	}
 
+	/**
+	 * Adds a new element to the front of the list.
+	 * Nodes with null items are not allowed.
+	 * @param element
+	 */
 	public void addToFront(T element) {
+		if (element == null) return;
+		
 		_head._next = new Node(element, _head._next);
 		_size++;
 	}
@@ -107,27 +115,33 @@ public class LinkedList<T> {
 	}
 
 	/**
-	 * Returns the last node in the linked list.
-	 * @return
+	 * Calls the recursive helper method last(Node current)
+	 * 
+	 * @return the last node of the list
 	 */
 	private Node last() {
-		Node node = _head._next;
-		// go through the list until the last node is reached
-		// (the last node is the one that points to null)
-		while (node._next != _tail)
-		{
-			node = node._next;
-		}
-		return node;
-
+		return last(_head._next);
 	}
 	
 	/**
-	 * Adds a new node using the specified element 
-	 * to the back of the linked list.
+	 * recursive helper method that calls itself until the last node is reached.
+	 * 
+	 * @param current -- current node
+	 * @return last node of the list
+	 */
+	private Node last(Node current) {
+		if (current._next.equals(_tail)) { return current; }
+		return last(current._next);
+	}
+	
+	/**
+	 * Adds a new element to the back of the list.
+	 * Nodes with null items are not allowed.
 	 * @param element - element to add
 	 */
 	public void addToBack(T element) {
+		if (element == null) return;
+		
 		 last()._next = new Node(element, null);
 	}
 	
@@ -136,6 +150,7 @@ public class LinkedList<T> {
 	 * @param n - node to check
 	 * @return whether it is at the end
 	 */
+
 	private boolean atEnd(Node n) {
 
 		return n.equals(_tail);
