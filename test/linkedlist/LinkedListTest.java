@@ -140,7 +140,7 @@ class LinkedListTest {
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		list.addToBack(2);
 		list.addToBack(4);
-		assertEquals("2 4  ", list.toString());
+		assertEquals("2 4 ", list.toString());
 	}
 	
 }
