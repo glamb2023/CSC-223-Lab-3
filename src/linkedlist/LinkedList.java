@@ -1,5 +1,8 @@
 package linkedlist;
-
+/**
+ * A generic singly linked list class.
+ * @param <T>
+ */
 public class LinkedList<T> {
 
 	protected Node _head;
@@ -44,6 +47,12 @@ public class LinkedList<T> {
 		return this.contains(target, _head._next);
 	}
 
+	/**
+	 * Recurvise helper for contains.
+	 * @param target
+	 * @param current
+	 * @return
+	 */
 	private boolean contains(T target, Node current) {
 
 		if (target == null || current == null)
@@ -54,10 +63,22 @@ public class LinkedList<T> {
 
 	}
 
+	/**
+	 * Returns the node that points to the node that has
+	 * the specified target as its item
+	 * @param target - node that is pointed to by the node we want
+	 * @return the found node
+	 */
 	public Node previous(T target) {
 		return this.previous(target, _head);
 	}
 
+	/**
+	 * Recursive helper method for previous.
+	 * @param target
+	 * @param current
+	 * @return
+	 */
 	private Node previous(T target, Node current) {
 		if (target == null || current._next == null)
 			return null;
@@ -67,41 +88,73 @@ public class LinkedList<T> {
 
 	}
 
+	/**
+	 * Removes the first node in the list which item is 
+	 * equal to the specified target. 
+	 * @param target - item to find and remove
+	 * @return - whether the remove was successful
+	 */
 	public boolean remove(T target) {
 		
 		_size--;
 		return false;
 	}
 
+	/**
+	 * Returns the last node in the linked list.
+	 * @return
+	 */
 	private Node last() {
-		
-
-	}
-
-	public void addToBack(T element) {
-		 return addToBackHelper(element, _head);
-
-	}
-
-	private void addToBackHelper(T element, Node node) {
-		if (node._next.equals(_tail)) {
-			node._next = new Node(element, _tail);
+		Node node = _head._next;
+		// go through the list until the last node is reached
+		// (the last node is the one that points to null)
+		while (node._next != _tail)
+		{
+			node = node._next;
 		}
-		 return addToBackHelper(element, node._next);
-	}
+		return node;
 
+	}
+	
+	/**
+	 * Adds a new node using the specified element 
+	 * to the back of the linked list.
+	 * @param element - element to add
+	 */
+	public void addToBack(T element) {
+		 last()._next = new Node(element, null);
+	}
+	
+	/**
+	 * Returns whether n is at the end of the list.
+	 * @param n - node to check
+	 * @return whether it is at the end
+	 */
 	public boolean atEnd(Node n) {
 
-		return n==null;
+		return n == null;
 
 	}
 
+	/**
+	 * Returns a string representation of the linked list.
+	 * Lists each node's item, separated by spaces.
+	 * Example:
+	 * 2 4 6 8
+	 */
 	public String toString() {
 
 		return toStringHelper(new StringBuilder(), _head._next);
 
 	}
 
+	/**
+	 * Helper method for toString. Recursively concatenates each node's item
+	 * as a string, separated by spaces.
+	 * @param sb - stringbuilder
+	 * @param n - node to add
+	 * @return string - partially or fully built
+	 */
 	private String toStringHelper(StringBuilder sb, Node n) {
 
 		if (atEnd(n)) return sb.toString();
