@@ -20,8 +20,9 @@ public class LinkedList<T> {
 	}
 
 	public LinkedList() {
-		_head = new Node(null, _tail);
+		_head = new Node(null, null);
 		_tail = new Node(null, null);
+		_head._next = _tail;
 		_size = 0;
 	}
 
