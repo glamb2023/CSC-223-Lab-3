@@ -143,9 +143,18 @@ public class LinkedList<T> {
 	 * @param element - element to add
 	 */
 	public void addToBack(T element) {
+		// adding to back on an empty list is the same as adding to front,
+		// so do that method instead
+		if (_size == 0)
+		{
+			addToFront(element);
+			return;
+		}
+		// if list is non empty
 		if (element == null) return;
 		
-		 last()._next = new Node(element, null);
+		 last()._next = new Node(element, _tail);
+		 _size++;
 	}
 	
 	/**
