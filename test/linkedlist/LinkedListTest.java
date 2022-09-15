@@ -143,5 +143,46 @@ class LinkedListTest {
 		assertEquals("2 4  ", list.toString());
 	}
 	
+	@Test
+	void testReverse() {
+		LinkedList<Integer> l = new LinkedList<Integer>();
+		// testing reversing with one element
+		l.addToFront(1);
+		String preReverse = l.toString();
+		l.reverse();
+		String postReverse = l.toString();
+		assertEquals(preReverse, postReverse);
+		
+		// testing reversing list with two elements
+		l.addToBack(2);
+		preReverse = l.toString();
+		StringBuilder sb = new StringBuilder(preReverse);
+		StringBuilder revSb = sb.reverse();
+		l.reverse();
+		postReverse = l.toString();
+		assertEquals(revSb, postReverse);
+		
+		// testing reversing list with five elements
+		l.addToFront(5);
+		l.addToBack(10);
+		l.addToBack(25);
+		preReverse = l.toString();
+		sb = new StringBuilder(preReverse);
+		revSb = sb.reverse();
+		l.reverse();
+		postReverse = l.toString();
+		assertEquals(revSb, postReverse);
+		
+		// testing after removing two elements
+		l.remove(5);
+		l.remove(1);
+		preReverse = l.toString();
+		sb = new StringBuilder(preReverse);
+		revSb = sb.reverse();
+		l.reverse();
+		postReverse = l.toString();
+		assertEquals(revSb, postReverse);
+	}
+	
 }
 

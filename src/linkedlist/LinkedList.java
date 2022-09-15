@@ -180,16 +180,31 @@ public class LinkedList<T> {
 	 * @return string - partially or fully built
 	 */
 	private String toStringHelper(StringBuilder sb, Node n) {
-
-		if (atEnd(n)) return sb.toString();
+		if (atEnd(n)) {
+			sb.delete(sb.length(), sb.length());
+			return sb.toString();
+		}
 		sb.append(n._item + " ");
 		return toStringHelper(sb, n._next);
 
 	}
-
+	/**
+	 * reverses the linked list
+	 */
 	public void reverse() {
-		
+		Node prevNode = null;
+		Node nextNode = null;
+		// loops through the list to reverse all the pointers with 
+		// the help of two temporary nodes. Stops at the _tail node
+		for (Node n = _head; !n.equals(_tail); n = n._next) {			
+			nextNode = n._next;
+			n._next = prevNode;
+			prevNode = n;
+			n = nextNode;
+		}
+		// fixes the pointers to and from the head and tail nodes
+		_head._next = prevNode;
+		last()._next = _tail;
 	}
-
 }
 
