@@ -115,10 +115,25 @@ public class LinkedList<T> {
 	}
 
 	/**
+	 * loops through the list until the last element is reached and 
+	 * returns the last element of the list.
+	 * 
+	 * @return n -- the last node of the list
+	 */
+	/*
+	private Node last() {
+	Node n = _head._next;
+	while (!n._next.equals(_tail))
+	{
+		n = node._next;
+	}
+	return n;
+	} */
+	
+	/**
 	 * Returns the last element in the linked list.
 	 * If the list is empty, returns null.
 	 * Calls the recursive helper method last(Node current)
-	 * 
 	 * @return the last node of the list
 	 */
 	private Node last() {
@@ -152,9 +167,8 @@ public class LinkedList<T> {
 		}
 		// if list is non empty
 		if (element == null) return;
-		
-		 last()._next = new Node(element, _tail);
-		 _size++;
+		last()._next = new Node(element, _tail);
+		_size++;
 	}
 	
 	/**
@@ -162,11 +176,9 @@ public class LinkedList<T> {
 	 * @param n - node to check
 	 * @return whether it is at the end
 	 */
-
 	private boolean atEnd(Node n) {
 
 		return n.equals(_tail);
-		
 	}
 
 	/**
@@ -176,9 +188,7 @@ public class LinkedList<T> {
 	 * 2 4 6 8
 	 */
 	public String toString() {
-
 		return toStringHelper(new StringBuilder(), _head._next);
-		
 	}
 
 	/**
@@ -190,13 +200,13 @@ public class LinkedList<T> {
 	 */
 	private String toStringHelper(StringBuilder sb, Node n) {
 		if (atEnd(n)) {
-			sb.delete(sb.length(), sb.length());
+			if (sb.length() > 0) sb.deleteCharAt(sb.length() - 1);
 			return sb.toString();
 		}
 		sb.append(n._item + " ");
 		return toStringHelper(sb, n._next);
-
 	}
+	
 	/**
 	 * reverses the linked list
 	 */
