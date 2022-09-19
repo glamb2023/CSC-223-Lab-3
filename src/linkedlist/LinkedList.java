@@ -6,10 +6,24 @@ package linkedlist;
  */
 public class LinkedList<T> {
 
+	/**
+	 * Sentinel head node. Does not count towards list size.
+	 */
 	protected Node _head;
+	
+	/**
+	 * Sentinel tail node. Does not count towards list size.
+	 */
 	protected Node _tail;
+	
+	/**
+	 * Keeps track of the number of nodes, excl. sentinel head and tail.
+	 */
 	protected int _size;
 
+	/**
+	 * Private node class to represent a node in the linked list.
+	 */
 	private class Node {
 		private T _item;
 		private Node _next;
@@ -20,21 +34,35 @@ public class LinkedList<T> {
 		}
 	}
 
+	/**
+	 * Creates an empty linked list.
+	 */
 	public LinkedList() {
 		_tail = new Node(null, null);
 		_head = new Node(null, _tail);
 		_size = 0;
 	}
 
+	/**
+	 * Returns whether the linked list is empty.
+	 * @return true if it's empty, false if it's not
+	 */
 	public boolean isEmpty() {
 		return _size == 0;
 	}
 
+	/**
+	 * Clears the list.
+	 */
 	public void clear() {
 		_head._next = _tail;
 		_size = 0;
 	}
 
+	/**
+	 * Returns the number of nodes in the linked list.
+	 * @return size - number of nodes in the list
+	 */
 	public int size() {
 		return _size;
 	}
@@ -51,6 +79,12 @@ public class LinkedList<T> {
 		_size++;
 	}
 
+	/**
+	 * Returns whether the linked list contains a node with the 
+	 * specified target as its data.
+	 * @param target - the data used to find the node we want
+	 * @return whether the node exists in the linked list
+	 */
 	public boolean contains(T target) {
 		return this.contains(target, _head._next);
 	}
@@ -103,7 +137,6 @@ public class LinkedList<T> {
 	 * @param target - item to find and remove
 	 * @return - whether the remove was successful
 	 */
-	
 	public boolean remove(T target) {
 		//finds node previous to target
 		Node n = previous(target);
@@ -111,7 +144,7 @@ public class LinkedList<T> {
 		n._next=n._next._next;
 		_size--;
 		return true;
-
+		
 	}
 
 	/**
