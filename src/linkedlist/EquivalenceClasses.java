@@ -6,9 +6,9 @@ import java.util.List;
 
 public class EquivalenceClasses<T>{
 	
-	protected Comparator<T> comparator;
+	protected Comparator<T> _comparator;
 	
-	protected List<LinkedEquivalenceClass<T>> rest;
+	protected List<LinkedEquivalenceClass<T>> _classes;
 	
 	
 	/**
@@ -17,8 +17,8 @@ public class EquivalenceClasses<T>{
 	 * @param a comparator that is used to initialize the instance variable comparator
 	 */
 	public EquivalenceClasses(Comparator<T> c) {
-		comparator = c;
-		rest = new ArrayList<LinkedEquivalenceClass<T>>();
+		_comparator = c;
+		_classes = new ArrayList<LinkedEquivalenceClass<T>>();
 	}
 	
 	
@@ -30,9 +30,9 @@ public class EquivalenceClasses<T>{
 	 * @return whether the passed element was actually added
 	 */
 	public boolean add(T element) {
-		for (int i = 0; i < rest.size(); i++) {
-			if (rest.get(i).belongs(element)) {
-				return rest.get(i).add(element);
+		for (int i = 0; i < _classes.size(); i++) {
+			if (_classes.get(i).belongs(element)) {
+				return _classes.get(i).add(element);
 			};
 		}
 		return false;
@@ -47,8 +47,8 @@ public class EquivalenceClasses<T>{
 	 * @return whether the passed element belongs to any class
 	 */
 	public boolean contains(T target) {
-		for (int i = 0; i < rest.size(); i++) {
-			if (rest.get(i).belongs(target)) return true;
+		for (int i = 0; i < _classes.size(); i++) {
+			if (_classes.get(i).belongs(target)) return true;
 		}
 		return false;
 	}
@@ -59,7 +59,7 @@ public class EquivalenceClasses<T>{
 	 */
 	public int size() {
 		// are we checking size 
-		return rest.size();
+		return _classes.size();
 	}
 	
 	
@@ -67,7 +67,7 @@ public class EquivalenceClasses<T>{
 	 * @return the number of LinkedEquivalenceClasses that rest holds
 	 */
 	public int numClasses() {
-		return rest.size();
+		return _classes.size();
 	}
 	
 	
@@ -79,8 +79,8 @@ public class EquivalenceClasses<T>{
 	 * @return index of the class that element belongs to or -1 if no such class exists
 	 */
 	protected int indexOfClass(T element) {
-		for (int i = 0; i < rest.size(); i++) {
-			if (rest.get(i).belongs(element)) return i;
+		for (int i = 0; i < _classes.size(); i++) {
+			if (_classes.get(i).belongs(element)) return i;
 		}
 		return -1;
 	}
@@ -91,6 +91,6 @@ public class EquivalenceClasses<T>{
 	 */
 	@Override
 	public String toString() {
-		return rest.toString();
+		return _classes.toString();
 	}
 }
