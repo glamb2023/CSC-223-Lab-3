@@ -164,8 +164,8 @@ class LinkedListTest {
 		
 		// testing reversing list with five elements
 		l.addToFront(5);
-		l.addToBack(10);
-		l.addToBack(25);
+		l.addToBack(8);
+		l.addToBack(7);
 		preReverse = l.toString();
 		sb = new StringBuilder(preReverse);
 		revSb = sb.reverse();
@@ -182,6 +182,13 @@ class LinkedListTest {
 		l.reverse();
 		postReverse = l.toString();
 		assertEquals(revSb.toString(), postReverse);
+		
+		// reverse empty
+		LinkedList<Integer> empty = new LinkedList<Integer>();
+		empty.reverse();
+		postReverse = empty.toString();
+		assertEquals("", postReverse);
 	}
+	
 }
 

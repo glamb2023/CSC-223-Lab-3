@@ -123,7 +123,7 @@ public class LinkedList<T> {
 	 */
 	private Node previous(T target, Node current) {
 		
-		if (target == null || current._next.equals(_tail))
+		if (target == null || current._next == _tail)
 			return null;
 		if (current._next._item.equals(target))
 			return current;
@@ -170,7 +170,7 @@ public class LinkedList<T> {
 	 * @return the last node of the list
 	 */
 	private Node last() {
-		if (_head._next == _tail) return null;
+		if (this.isEmpty()) return null;
 		return last(_head._next);
 	}
 	
@@ -181,7 +181,7 @@ public class LinkedList<T> {
 	 * @return last node of the list
 	 */
 	private Node last(Node current) {
-		if (current._next.equals(_tail)) return current; 
+		if (current._next ==_tail) return current; 
 		return last(current._next);
 	}
 	
@@ -211,7 +211,7 @@ public class LinkedList<T> {
 	 */
 	private boolean atEnd(Node n) {
 
-		return n.equals(_tail);
+		return n ==_tail;
 	}
 
 	/**
@@ -241,22 +241,73 @@ public class LinkedList<T> {
 	}
 	
 	/**
-	 * reverses the linked list
+	 * Reverses the linked list.
 	 */
 	public void reverse() {
-		Node prevNode = null;
-		Node nextNode = null;
-		// loops through the list to reverse all the pointers with 
-		// the help of two temporary nodes. Stops at the _tail node
-		for (Node n = _head; !n.equals(_tail); n = n._next) {			
-			nextNode = n._next;
-			n._next = prevNode;
-			prevNode = n;
-			n = nextNode;
-		}
-		// fixes the pointers to and from the head and tail nodes
-		_head._next = prevNode;
-		last()._next = _tail;
+		if (_size <= 1) return; // no use reversing an empty list or containing only 1 element
+
+		this.reverseHelper(_head);
+	}
+	
+	/**
+	 * Helper method for reverse().
+	 * The process of recursively reversing is as follows:
+	 * A checkpoint is used--the first being sentinel head node.
+	 * The last node of the list is inserted AFTER the checkpoint.
+	 * The just-inserted node is passed as the next checkpoint.
+	 * 
+	 * example below. say we want to reverse this list:
+	 * head -> a -> b -> c -> tail
+	 * 
+	 * Then, using the algorithm (assume capitalized nodes are the checkpoint):
+	 * 
+	 * iteration 1:
+	 * HEAD -> a -> b -> c -> tail     <- head starts out as the checkpoint
+	 * HEAD -> c -> a -> b -> tail	   <- c has been inserted
+	 * 
+	 * iteration 2:
+	 * head -> C -> a -> b -> tail	   <- c is now the checkpoint
+	 * head -> C -> b -> a -> tail	   <- b has been inserted
+	 * 
+	 * iteration 3:
+	 * head -> c -> B -> a -> tail     <- b is now the checkpoint
+	 * the algorithm ends because the list is now reversed.
+	 * (B.next.next is tail)
+	 * 
+	 * @param checkpoint - node to insert after
+	 */
+	private void reverseHelper(Node checkpoint)
+	{
+		if (checkpoint._next._next == _tail) return;
+		
+		Node secondToLast = this.secondToLast();
+		Node last = secondToLast._next;
+		
+		last._next = checkpoint._next; // last element points to node AFTER checkpoint
+		checkpoint._next = last;	   // checkpoint now points to last element
+		secondToLast._next = _tail;    // second to last node points to tail (is now the new last node).
+		
+		reverseHelper(last);		   // pass in the FORMER last node (the one that was just moved) as the next checkpoint
+		
+	}
+	
+	/**
+	 * Helper method for reverse. Gets the second to last node in the list
+	 * @return node
+	 */
+	private Node secondToLast() {
+		if (this.isEmpty()) return null;
+		return secondToLast(_head._next);
+	}
+	
+	/**
+	 * Helper recursive method for secondToLast.
+	 * @param current - current node
+	 * @return node
+	 */
+	private Node secondToLast(Node current) {
+		if (current._next._next == _tail) return current; 
+		return secondToLast(current._next);
 	}
 }
 
