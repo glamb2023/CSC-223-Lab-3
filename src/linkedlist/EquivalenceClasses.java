@@ -10,6 +10,7 @@ public class EquivalenceClasses<T>{
 	
 	protected List<LinkedEquivalenceClass<T>> rest;
 	
+	
 	/**
 	 * creates a EquivalenceClasses object and initializes the instance variables. 
 	 * 
@@ -20,30 +21,38 @@ public class EquivalenceClasses<T>{
 		rest = new ArrayList<LinkedEquivalenceClass<T>>();
 	}
 	
+	
 	/**
+	 * Adds the passed element to the class it belongs to. Returns false if it does not 
+	 * belong to any class. 
 	 * 
-	 * @param element
+	 * @param element -- the element added to the class which it belongs to
 	 * @return whether the passed element was actually added
 	 */
 	public boolean add(T element) {
-		if (rest.contains(element)) return false;
-		
-		// which linked equivalence class are we adding to?
-		return true;
+		for (int i = 0; i < rest.size(); i++) {
+			if (rest.get(i).belongs(element)) {
+				return rest.get(i).add(element);
+			};
+		}
+		return false;
 	}
 	
 	
 	/**
+	 * checks the classes if the passed element belongs to any of 
+	 * the equivalence classes
 	 * 
-	 * @param target
-	 * @return whether the passed element is in the list
+	 * @param target -- the element used to check if it belongs in any of the classes
+	 * @return whether the passed element belongs to any class
 	 */
 	public boolean contains(T target) {
-		
-		// are we checking the linked equivalence classes for the element??
-		// can't check rest for it since rest holds LinkedEquivalenceClass objects, right?
-		return true;
+		for (int i = 0; i < rest.size(); i++) {
+			if (rest.get(i).belongs(target)) return true;
+		}
+		return false;
 	}
+	
 	
 	/**
 	 * @return the size of the list
@@ -55,7 +64,6 @@ public class EquivalenceClasses<T>{
 	
 	
 	/**
-	 * 
 	 * @return the number of LinkedEquivalenceClasses that rest holds
 	 */
 	public int numClasses() {
@@ -64,20 +72,22 @@ public class EquivalenceClasses<T>{
 	
 	
 	/**
-	 * @param element
-	 * @return index of the class
+	 * finds the class that the element belongs to and returns the index of that class or -1 
+	 * if no such class exists.
+	 * 
+	 * @param element -- the element we are looking for
+	 * @return index of the class that element belongs to or -1 if no such class exists
 	 */
 	protected int indexOfClass(T element) {
 		for (int i = 0; i < rest.size(); i++) {
-			if (comparator.compare(element, rest.get(i))) return i;	
+			if (rest.get(i).belongs(element)) return i;
 		}
 		return -1;
 	}
-	
-	
+
 	
 	/**
-	 * @return sb - a string containing all LinkedEquivalenceClasses
+	 * @return a string containing all LinkedEquivalenceClasses
 	 */
 	@Override
 	public String toString() {
