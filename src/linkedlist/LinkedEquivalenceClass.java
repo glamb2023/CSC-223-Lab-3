@@ -5,6 +5,8 @@ package linkedlist;
  * Uses a given comparator to be used to compare the given object type.
  * The rest of the equivalent objects are added to the linked list.
  * 
+ * This implementation currently assumes that duplicate values are allowed.
+ * And, null values cannot be considered equivalent.
  */
 import java.util.Comparator;
 
@@ -88,7 +90,7 @@ public class LinkedEquivalenceClass<T> {
 	
 	/**
 	 * Adds an element to the end of the linked list, only if 
-	 * it belongs in this equivalence class. /////does it allow duplicates?
+	 * it belongs in this equivalence class.
 	 * @param element - the element to add
 	 * @return whether the add operation was successful
 	 */
@@ -120,6 +122,9 @@ public class LinkedEquivalenceClass<T> {
 	 * @return whether this element belongs in this equivalence class
 	 */
 	public boolean belongs(T target) {
+		if (_canonical == null) return false;
+		if (target == null) return false;
+		if (target.equals(_canonical)) return true;
 		return _comparator.compare(_canonical, target) == 0;
 	}
 	
@@ -131,7 +136,7 @@ public class LinkedEquivalenceClass<T> {
 	public boolean remove(T target) {
 		if (target == null) return false;
 		
-		if (target == _canonical) {
+		if (target.equals(_canonical)) {
 			return removeCanonical();
 		}
 		return _rest.remove(target);
@@ -142,7 +147,7 @@ public class LinkedEquivalenceClass<T> {
 	 * @return whether the remove operation was successful
 	 */
 	public boolean removeCanonical() {
-		if (_canonical != null) return false;
+		if (_canonical == null) return false;
 		_canonical = null;
 		return true;
 	}
@@ -151,16 +156,17 @@ public class LinkedEquivalenceClass<T> {
 	 * If the specified element belongs in this equivalence class, 
 	 * demotes the current canonical object (moves it into the linked list), if it exists, then
 	 * updates the canonical object to the specified element.
-	 * @param element
-	 * @return
+	 * @param element - element to replace canonical with
+	 * @return whether the add was successful
 	 */
 	public boolean demoteAndSetCanonical(T element) 
 	{
-		if (!this.belongs(element)) return false;
-		
-		// only demote canonical if it exists
 		if (_canonical != null)
 		{
+			// only check if element belongs when canonical exists
+			if (!this.belongs(element)) return false;
+			
+			// only demote canonical if it exists
 			_rest.addToBack(_canonical);
 		}
 		// update canonical 
