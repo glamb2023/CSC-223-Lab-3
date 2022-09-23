@@ -30,6 +30,7 @@ public class EquivalenceClasses<T>{
 	 * @return whether the passed element was actually added
 	 */
 	public boolean add(T element) {
+		if (element == null) return false;
 		for (int i = 0; i < _classes.size(); i++) {
 			if (_classes.get(i).belongs(element)) {
 				return _classes.get(i).add(element);
@@ -47,8 +48,9 @@ public class EquivalenceClasses<T>{
 	 * @return whether the passed element belongs to any class
 	 */
 	public boolean contains(T target) {
+		if (element == null) return false;
 		for (int i = 0; i < _classes.size(); i++) {
-			if (_classes.get(i).belongs(target)) return true;
+			if (_classes.get(i).contains(target)) return true;
 		}
 		return false;
 	}
@@ -58,7 +60,7 @@ public class EquivalenceClasses<T>{
 	 * @return the size of the list
 	 */
 	public int size() {
-		// are we checking size 
+		// are we checking size //yes
 		return _classes.size();
 	}
 	
@@ -79,8 +81,9 @@ public class EquivalenceClasses<T>{
 	 * @return index of the class that element belongs to or -1 if no such class exists
 	 */
 	protected int indexOfClass(T element) {
+		if (element == null) return false;
 		for (int i = 0; i < _classes.size(); i++) {
-			if (_classes.get(i).belongs(element)) return i;
+			if (_classes.get(i).contains(element)) return i;
 		}
 		return -1;
 	}
