@@ -244,14 +244,20 @@ public class LinkedList<T> {
 	 * Reverses list by calling recursive helper method
 	 */
 	public void reverse() {
-		Node newLast = reverse(_head._next);
-		newLast._next=_tail;
+		if (_size<=1) return;
+		Node lastNode = reverse(_head._next);
+		lastNode._next=_tail;
 	}
 
 	/**
 	 * 
 	 * @param currentNode
 	 * @return
+	 * If the current node points to tail, the head points to it. 
+	 * If not then it calls the method again with the next node. 
+	 * Once the stack reaches the end of the list, and a node is returned,
+	 * the stack unwinds pointing the current node to the node before. It continues
+	 * to do this until the list is reversed then sets the first node to be the new last
 	 */
 	private Node reverse(Node currentNode) {
 		if(currentNode._next == _tail){
@@ -261,8 +267,8 @@ public class LinkedList<T> {
 
 		}
 
-		Node node = reverse(currentNode._next);
-		node._next = currentNode;
+		Node tempNode = reverse(currentNode._next);
+		tempNode._next = currentNode;
 		return currentNode;
 	}
 
