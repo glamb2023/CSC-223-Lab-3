@@ -36,12 +36,12 @@ public class EquivalenceClassesTest {
     // - add, but doesn't belong to any
     // - add, but belongs
     @Test
-    void testadd_null()
+    public void testadd_null()
     {
-    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>();
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
 		LinkedEquivalenceClass<Double> linkedclass = new LinkedEquivalenceClass<Double>(c);
 		linkedclass.demoteAndSetCanonical(4.0);
-		ec.append(linkedclass);
+		ec._classes.add(linkedclass);
     	
     	boolean actual = ec.add(null);
     	boolean expected = false;
@@ -49,9 +49,9 @@ public class EquivalenceClassesTest {
     }
     
     @Test
-    void testadd_toEmpty()
+    public void testadd_toEmpty()
     {
-    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>();
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
     	
     	boolean actual = ec.add(2.0);
     	boolean expected = false;
@@ -59,12 +59,12 @@ public class EquivalenceClassesTest {
     }
     
     @Test
-    void testadd_nobelong()
+    public void testadd_nobelong()
     {
-    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>();
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
 		LinkedEquivalenceClass<Double> linkedclass = new LinkedEquivalenceClass<Double>(c);
 		linkedclass.demoteAndSetCanonical(4.0);
-		ec.append(linkedclass);
+		ec._classes.add(linkedclass);
     	
     	boolean actual = ec.add(3.0);
     	boolean expected = false;
@@ -72,15 +72,15 @@ public class EquivalenceClassesTest {
     }
     
     @Test
-    void testadd_belongs()
+    public void testadd_belongs()
     {
-    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>();
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
 		LinkedEquivalenceClass<Double> linkedclass = new LinkedEquivalenceClass<Double>(c);
 		linkedclass.demoteAndSetCanonical(4.0);
-		ec.append(linkedclass);
+		ec._classes.add(linkedclass);
     	
     	boolean actual = ec.add(9.0);
-    	boolean expected = false;
+    	boolean expected = true;
     	assertEquals(expected, actual);
     }
     
@@ -92,6 +92,87 @@ public class EquivalenceClassesTest {
     // - contains, 1 class
     // - contains, 2 classes
     
+    @Test
+    public void testcontains_null()
+    {
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
+		LinkedEquivalenceClass<Double> linkedclass = new LinkedEquivalenceClass<Double>(c);
+		linkedclass.demoteAndSetCanonical(4.0);
+		ec._classes.add(linkedclass);
+    	
+    	boolean actual = ec.contains(null);
+    	boolean expected = false;
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testcontains_empty()
+    {
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
+    	
+    	boolean actual = ec.contains(4.0);
+    	boolean expected = false;
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testcontains_nocontain_size1()
+    {
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
+		LinkedEquivalenceClass<Double> linkedclass1 = new LinkedEquivalenceClass<Double>(c);
+		linkedclass1.demoteAndSetCanonical(4.0);
+		ec._classes.add(linkedclass1);
+    	
+    	boolean actual = ec.contains(9.0);
+    	boolean expected = false;
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testcontains_nocontain_size2()
+    {
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
+		LinkedEquivalenceClass<Double> linkedclass1 = new LinkedEquivalenceClass<Double>(c);
+		linkedclass1.demoteAndSetCanonical(4.0);
+		LinkedEquivalenceClass<Double> linkedclass2 = new LinkedEquivalenceClass<Double>(c);
+		linkedclass2.demoteAndSetCanonical(9.0);
+		ec._classes.add(linkedclass1);
+		ec._classes.add(linkedclass2);
+    	
+    	boolean actual = ec.contains(16.0);
+    	boolean expected = false;
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testcontains_contains_size1()
+    {
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
+		LinkedEquivalenceClass<Double> linkedclass1 = new LinkedEquivalenceClass<Double>(c);
+		linkedclass1.demoteAndSetCanonical(4.0);
+		ec._classes.add(linkedclass1);
+    	
+    	boolean actual = ec.contains(4.0);
+    	boolean expected = true;
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testcontains_contains_size2()
+    {
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
+		LinkedEquivalenceClass<Double> linkedclass1 = new LinkedEquivalenceClass<Double>(c);
+		linkedclass1.demoteAndSetCanonical(4.0);
+		LinkedEquivalenceClass<Double> linkedclass2 = new LinkedEquivalenceClass<Double>(c);
+		linkedclass2.demoteAndSetCanonical(9.0);
+		ec._classes.add(linkedclass1);
+		ec._classes.add(linkedclass2);
+    	
+    	boolean actual = ec.contains(9.0);
+    	boolean expected = true;
+    	assertEquals(expected, actual);
+    }
+    
     // indexOfClass
     // - null
     // - empty
@@ -99,5 +180,86 @@ public class EquivalenceClassesTest {
     // - does not contain, 2 classes
     // - contains, 1 class
     // - contains, 2 classes
+    
+    @Test
+    public void testindexOfClass_null()
+    {
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
+		LinkedEquivalenceClass<Double> linkedclass = new LinkedEquivalenceClass<Double>(c);
+		linkedclass.demoteAndSetCanonical(4.0);
+		ec._classes.add(linkedclass);
+    	
+    	int actual = ec.indexOfClass(null);
+    	int expected = -1;
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testindexOfClass_empty()
+    {
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
+
+    	int actual = ec.indexOfClass(4.0);
+    	int expected = -1;
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testindexOfClass_nocontain_size1()
+    {
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
+		LinkedEquivalenceClass<Double> linkedclass1 = new LinkedEquivalenceClass<Double>(c);
+		linkedclass1.demoteAndSetCanonical(4.0);
+		ec._classes.add(linkedclass1);
+    	
+    	int actual = ec.indexOfClass(9.0);
+    	int expected = -1;
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testindexOfClass_nocontain_size2()
+    {
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
+		LinkedEquivalenceClass<Double> linkedclass1 = new LinkedEquivalenceClass<Double>(c);
+		linkedclass1.demoteAndSetCanonical(4.0);
+		LinkedEquivalenceClass<Double> linkedclass2 = new LinkedEquivalenceClass<Double>(c);
+		linkedclass2.demoteAndSetCanonical(9.0);
+		ec._classes.add(linkedclass1);
+		ec._classes.add(linkedclass2);
+    	
+    	int actual = ec.indexOfClass(16.0);
+    	int expected = -1;
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testindexOfClass_contains_size1()
+    {
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
+		LinkedEquivalenceClass<Double> linkedclass1 = new LinkedEquivalenceClass<Double>(c);
+		linkedclass1.demoteAndSetCanonical(4.0);
+		ec._classes.add(linkedclass1);
+    	
+    	int actual = ec.indexOfClass(4.0);
+    	int expected = 0;
+    	assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testindexOfClass_contains_size2()
+    {
+    	EquivalenceClasses<Double> ec = new EquivalenceClasses<Double>(c);
+		LinkedEquivalenceClass<Double> linkedclass1 = new LinkedEquivalenceClass<Double>(c);
+		linkedclass1.demoteAndSetCanonical(4.0);
+		LinkedEquivalenceClass<Double> linkedclass2 = new LinkedEquivalenceClass<Double>(c);
+		linkedclass2.demoteAndSetCanonical(9.0);
+		ec._classes.add(linkedclass1);
+		ec._classes.add(linkedclass2);
+    	
+    	int actual = ec.indexOfClass(9.0);
+    	int expected = 1;
+    	assertEquals(expected, actual);
+    }
     
 }

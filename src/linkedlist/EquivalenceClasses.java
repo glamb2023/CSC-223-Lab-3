@@ -48,7 +48,7 @@ public class EquivalenceClasses<T>{
 	 * @return whether the passed element belongs to any class
 	 */
 	public boolean contains(T target) {
-		if (element == null) return false;
+		if (target == null) return false;
 		for (int i = 0; i < _classes.size(); i++) {
 			if (_classes.get(i).contains(target)) return true;
 		}
@@ -60,7 +60,6 @@ public class EquivalenceClasses<T>{
 	 * @return the size of the list
 	 */
 	public int size() {
-		// are we checking size //yes
 		return _classes.size();
 	}
 	
@@ -81,7 +80,7 @@ public class EquivalenceClasses<T>{
 	 * @return index of the class that element belongs to or -1 if no such class exists
 	 */
 	protected int indexOfClass(T element) {
-		if (element == null) return false;
+		if (element == null) return -1;
 		for (int i = 0; i < _classes.size(); i++) {
 			if (_classes.get(i).contains(element)) return i;
 		}
