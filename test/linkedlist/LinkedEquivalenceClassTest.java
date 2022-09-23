@@ -158,9 +158,22 @@ class LinkedEquivalenceClassTest {
 	
 	// add
 	// - null
+	// - to empty
 	// - doesn't belong
 	// - add one
 	// - add many
+	
+	@Test
+	void testadd_toempty() 
+	{
+		LinkedEquivalenceClass<Double> eqc = new LinkedEquivalenceClass<Double>(c);
+		
+		boolean actual = eqc.add(4.0);
+		
+		boolean expected = true;
+		assertEquals(expected, actual);
+		assertEquals(eqc._canonical, 4.0);
+	}
 	
 	@Test
 	void testadd_null() 
@@ -355,6 +368,8 @@ class LinkedEquivalenceClassTest {
 	
 	// remove
 	// - null
+	// - from empty
+	// - no belong
 	// - target not found
 	// - target is canonical
 	// - target is in linked list
@@ -366,6 +381,29 @@ class LinkedEquivalenceClassTest {
 		
 		eqc.demoteAndSetCanonical(4.0);
 		boolean actual = eqc.remove(null);
+		
+		boolean expected = false;
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testremove_fromempty()
+	{
+		LinkedEquivalenceClass<Double> eqc = new LinkedEquivalenceClass<Double>(c);
+		
+		boolean actual = eqc.remove(4.0);
+		
+		boolean expected = false;
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testremove_nobelong()
+	{
+		LinkedEquivalenceClass<Double> eqc = new LinkedEquivalenceClass<Double>(c);
+		
+		eqc.demoteAndSetCanonical(4.0);
+		boolean actual = eqc.remove(3.0);
 		
 		boolean expected = false;
 		assertEquals(expected, actual);

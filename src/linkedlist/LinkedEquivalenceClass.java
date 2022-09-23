@@ -7,6 +7,12 @@ package linkedlist;
  * 
  * This implementation currently assumes that duplicate values are allowed.
  * And, null values cannot be considered equivalent.
+ * 
+ * For a mental image:
+ * {2|4,6,8,10}
+ *  ^ 2 is the canonical object
+ *    ^ everything else is "equivalent" to 2.
+ *      our definition of "equivalent" is that they are all even numbers
  */
 import java.util.Comparator;
 
@@ -54,7 +60,8 @@ public class LinkedEquivalenceClass<T> {
 	 * @return true if it is empty, false if it isn't
 	 */
 	public boolean isEmpty() {
-		return _rest.isEmpty() && _canonical == null;
+		if (_canonical != null) return false;
+		return _rest.isEmpty();
 	}
 	
 	/**
@@ -95,6 +102,10 @@ public class LinkedEquivalenceClass<T> {
 	 * @return whether the add operation was successful
 	 */
 	public boolean add(T element) {
+		if (_canonical == null) {
+			_canonical = element;
+			return true;
+		}
 		if(this.belongs(element)) {
 			_rest.addToBack(element);
 			return true;
@@ -135,6 +146,8 @@ public class LinkedEquivalenceClass<T> {
 	 */
 	public boolean remove(T target) {
 		if (target == null) return false;
+		if (!this.belongs(target)) return false;
+		if (this.size() == 0) return false;
 		
 		if (target.equals(_canonical)) {
 			return removeCanonical();
