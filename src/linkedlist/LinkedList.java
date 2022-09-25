@@ -191,6 +191,7 @@ public class LinkedList<T> {
 	 * @param element - element to add
 	 */
 	public void addToBack(T element) {
+		if (element == null) return;
 		// adding to back on an empty list is the same as adding to front,
 		// so do that method instead
 		if (_size == 0)
@@ -199,7 +200,6 @@ public class LinkedList<T> {
 			return;
 		}
 		// if list is non empty
-		if (element == null) return;
 		last()._next = new Node(element, _tail);
 		_size++;
 	}

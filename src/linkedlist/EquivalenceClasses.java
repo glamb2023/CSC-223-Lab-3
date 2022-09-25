@@ -86,13 +86,17 @@ public class EquivalenceClasses<T>{
 		}
 		return -1;
 	}
-
 	
 	/**
 	 * @return a string containing all LinkedEquivalenceClasses
 	 */
 	@Override
 	public String toString() {
-		return _classes.toString();
+		StringBuilder sb = new StringBuilder();
+		for (LinkedEquivalenceClass<T> c : this._classes)
+		{
+			sb.append("index " + _classes.indexOf(c) + " " + c.toString() + "\r\n");
+		}
+		return sb.toString();
 	}
 }
